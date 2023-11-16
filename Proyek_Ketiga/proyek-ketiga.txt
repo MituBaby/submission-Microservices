@@ -1,0 +1,2 @@
+shipping-service : https://github.com/users/MituBaby/packages/container/package/shipping-service
+order-service : https://github.com/users/MituBaby/packages/container/package/order-service

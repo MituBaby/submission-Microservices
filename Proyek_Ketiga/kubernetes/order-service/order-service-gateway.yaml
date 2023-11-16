@@ -1,0 +1,14 @@
+apiVersion: networking.istio.io/v1alpha3  # Menentukan versi API yang digunakan
+kind: Gateway  # Mendefinisikan jenis sumber daya Kubernetes sebagai Gateway
+metadata:
+  name: order-service-gw  # Nama Gateway Istio untuk order-service
+spec:
+  selector:
+    istio: ingressgateway  # Selektor untuk gateway masuk
+  servers:
+    - port:
+        number: 80  # Nomor port untuk lalu lintas HTTP
+        name: http  # Nama protokol HTTP
+        protocol: HTTP  # Protokol yang digunakan untuk port ini
+      hosts:
+        - "*"  # Menerima permintaan dari semua host

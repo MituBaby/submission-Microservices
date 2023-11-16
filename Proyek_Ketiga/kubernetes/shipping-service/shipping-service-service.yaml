@@ -1,0 +1,9 @@
+apiVersion: v1  # Menunjukkan versi API yang digunakan
+kind: Service  # Ini adalah jenis objek Kubernetes yang sedang dideskripsikan dalam YAML ini, yaitu "Service" yang digunakan untuk mengekspos layanan atau aplikasi ke dalam cluster Kubernetes.
+metadata:
+  name: shipping-service-svc  # Bagian ini berisi metadata terkait dengan objek Layanan, termasuk nama "shipping-service-svc" yang menunjukkan nama Layanan.
+spec:
+  selector:
+    app: shipping-service  # Menentukan selektor untuk mengidentifikasi pod yang menjadi target dari layanan ini.
+  ports:
+    - port: 3001  # Menentukan nomor port (dalam hal ini 3001).

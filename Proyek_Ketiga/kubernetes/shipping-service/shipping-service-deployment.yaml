@@ -1,0 +1,27 @@
+apiVersion: apps/v1  # Menunjukkan versi API yang digunakan
+kind: Deployment  # Mendefinisikan sebuah Deployment Kubernetes
+metadata:
+  name: shipping-service-deploy  # Nama Deployment untuk Shipping Service
+spec:
+  replicas: 1  # Jumlah replika untuk Shipping Service
+  selector:
+    matchLabels:
+      app: shipping-service  # Label selektor untuk aplikasi Shipping Service
+  template:
+    metadata:
+      labels:
+        app: shipping-service  # Label untuk aplikasi Shipping Service
+    spec:
+      containers:
+        - name: shipping-service  # Nama container untuk Shipping Service
+          image: docker.pkg.github.com/mitubaby/a433-microservices/shipping-service:latest  # Images kontainer untuk Shipping Service
+          ports:
+            - containerPort: 3001  # Port di mana kontainer layanan pengiriman mendengarkan.
+          env:
+            - name: AMQP_PASSWORD  # Variabel lingkungan untuk kata sandi AMQP.
+              valueFrom:
+                secretKeyRef:
+                  name: my-rabbitmq  # Nama rahasia untuk kredensial RabbitMQ.
+                  key: rabbitmq-password  # Kunci rahasia untuk kata sandi RabbitMQ.
+            - name: AMQP_URL  # Variabel lingkungan untuk URL AMQP.
+              value: "amqp://user:$(AMQP_PASSWORD)@my-rabbitmq:5672"  # Nilai untuk URL AMQP.

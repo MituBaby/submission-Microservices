@@ -1,0 +1,18 @@
+apiVersion: networking.istio.io/v1alpha3  # Menentukan versi API yang digunakan
+kind: VirtualService  # Mendefinisikan jenis sumber daya Kubernetes sebagai VirtualService
+metadata:
+  name: order-service-vs  # Nama VirtualService
+spec:
+  hosts:
+    - "*"  # Cocokkan semua host
+  gateways:
+    - order-service-gw  # Gunakan gateway order-service-gw
+  http:
+    - match:
+        - uri:
+            exact: "/order"  # Cocokkan URI yang tepat "/order"
+      route:
+        - destination:
+            host: order-service-svc  # Kirim lalu lintas ke order-service-svc
+            port:
+              number: 3000  # Menggunakan port 3000
